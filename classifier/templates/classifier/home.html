@@ -1,0 +1,168 @@
+{% extends 'classifier/base.html' %}
+
+{% block title %}Tobacco Leaf Classifier - Home{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto text-center mb-5">
+        <h1 class="display-4 mb-3">Tobacco Leaf Classification And Pricing System</h1>
+        <p class="lead">
+            Upload tobacco leaf images to automatically classify quality grade and determine pricing.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Quick Action Cards -->
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload mb-3 text-primary">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <h5 class="card-title">Upload Image</h5>
+                <p class="card-text">Browse your device for tobacco leaf images or capture using camera.</p>
+                <a href="{% url 'classifier:upload_image' %}" class="btn btn-primary mt-2">Upload Now</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-camera mb-3 text-primary">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                </svg>
+                <h5 class="card-title">Capture Image</h5>
+                <p class="card-text">Use your device's camera to take a photo of tobacco leaf.</p>
+                <a href="{% url 'classifier:camera_upload' %}" class="btn btn-primary mt-2">Capture Photo</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2 mb-3 text-primary">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <h5 class="card-title">View Dashboard</h5>
+                <p class="card-text">Access statistics and analytics of processed tobacco images.</p>
+                <a href="{% url 'classifier:dashboard' %}" class="btn btn-primary mt-2">Open Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- How It Works Section -->
+<div class="row mt-3 mb-5">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-light">
+                <h4 class="mb-0">How It Works</h4>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-3 mb-3 mb-md-0">
+                        <div class="p-3">
+                            <div class="rounded-circle bg-light d-inline-flex justify-content-center align-items-center mb-3" style="width: 80px; height: 80px;">
+                                <h2 class="mb-0">1</h2>
+                            </div>
+                            <h5>Upload</h5>
+                            <p class="small">Upload a tobacco leaf image through the browser or take a photo.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3 mb-md-0">
+                        <div class="p-3">
+                            <div class="rounded-circle bg-light d-inline-flex justify-content-center align-items-center mb-3" style="width: 80px; height: 80px;">
+                                <h2 class="mb-0">2</h2>
+                            </div>
+                            <h5>Validation</h5>
+                            <p class="small">Our system verifies that the image is a tobacco leaf.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3 mb-md-0">
+                        <div class="p-3">
+                            <div class="rounded-circle bg-light d-inline-flex justify-content-center align-items-center mb-3" style="width: 80px; height: 80px;">
+                                <h2 class="mb-0">3</h2>
+                            </div>
+                            <h5>Classification</h5>
+                            <p class="small">The system analyzes and classifies the tobacco leaf quality.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3">
+                            <div class="rounded-circle bg-light d-inline-flex justify-content-center align-items-center mb-3" style="width: 80px; height: 80px;">
+                                <h2 class="mb-0">4</h2>
+                            </div>
+                            <h5>Pricing</h5>
+                            <p class="small">Based on the quality grade, a price estimate is provided.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Results Section -->
+{% if recent_results %}
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">Recent Classifications</h4>
+                <a href="{% url 'classifier:dashboard' %}" class="btn btn-sm btn-primary">View All</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-results">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Grade</th>
+                                <th>Price</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for result in recent_results %}
+                            <tr>
+                                <td>
+                                    <img src="{{ result.tobacco_image.image.url }}" alt="Tobacco Leaf" width="60" height="60" class="rounded">
+                                </td>
+                                <td><span class="badge bg-primary">{{ result.grade }}</span></td>
+                                <td>${{ result.price|floatformat:2 }}</td>
+                                <td>{{ result.classified_at|date:"M d, Y" }}</td>
+                                <td>
+                                    <a href="{% url 'classifier:result' result.tobacco_image.id %}" class="btn btn-sm btn-outline-secondary">
+                                        <i data-feather="eye" class="feather-sm"></i> View
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Replace all feather icons after the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        feather.replace({ class: 'feather-sm', width: 16, height: 16 });
+    });
+</script>
+{% endblock %}

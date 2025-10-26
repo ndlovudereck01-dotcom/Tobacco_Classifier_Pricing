@@ -1,0 +1,80 @@
+{% extends 'accounts/base_auth.html' %}
+{% load account_extras %}
+
+{% block title %}User Management | Tobacco Leaf Classifier{% endblock %}
+
+{% block header_title %}User Management{% endblock %}
+
+{% block content %}
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Date Joined</th>
+                <th>Last Login</th>
+                <th>Status</th>
+                <th>Recent Activities</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.date_joined|date:"M d, Y H:i" }}</td>
+                <td>{{ user.last_login|date:"M d, Y H:i" }}</td>
+                <td>
+                    {% if user.is_active %}
+                        <span class="badge bg-success">Active</span>
+                    {% else %}
+                        <span class="badge bg-danger">Inactive</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="activity-list">
+                        {% for activity in user_activities|get_item:user.id %}
+                            <div class="activity-item">
+                                <small class="text-muted">{{ activity.timestamp|date:"M d, Y H:i" }}</small>
+                                <div>{{ activity.get_action_display }}</div>
+                                {% if activity.description %}
+                                    <small class="text-muted">{{ activity.description }}</small>
+                                {% endif %}
+                                {% if activity.ip_address %}
+                                    <small class="text-muted">IP: {{ activity.ip_address }}</small>
+                                {% endif %}
+                            </div>
+                        {% empty %}
+                            <small class="text-muted">No recent activities</small>
+                        {% endfor %}
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block extra_head %}
+<style>
+    .activity-list {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    .activity-item {
+        padding: 5px 0;
+        border-bottom: 1px solid #eee;
+    }
+    .activity-item:last-child {
+        border-bottom: none;
+    }
+</style>
+{% endblock %}
+
+{% block footer %}
+<p>
+    <a href="{% url 'classifier:home' %}" class="btn btn-outline-secondary">Back to Dashboard</a>
+</p>
+{% endblock %}

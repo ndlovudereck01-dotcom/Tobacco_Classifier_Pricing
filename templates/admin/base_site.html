@@ -1,0 +1,231 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Tobacco Leaf Classifier Admin') }}{% endblock %}
+
+{% block extrastyle %}
+<style>
+    :root {
+        --primary: #4CAF50;
+        --secondary: #827717;
+        --accent: #45a049;
+        --primary-fg: #fff;
+        --body-fg: #212121;
+        --body-bg: #f8f9fa;
+        --header-color: #fff;
+        --header-bg: var(--primary);
+        --header-link-color: #fff;
+        --link-fg: var(--accent);
+        --link-hover-color: #388e3c;
+        --button-fg: #fff;
+        --button-bg: var(--primary);
+        --button-hover-bg: var(--accent);
+        --default-button-bg: var(--primary);
+        --default-button-hover-bg: var(--accent);
+        --close-button-bg: #d32f2f;
+        --close-button-hover-bg: #b71c1c;
+        --delete-button-bg: #d32f2f;
+        --delete-button-hover-bg: #b71c1c;
+        --object-tools-fg: var(--button-fg);
+        --object-tools-bg: var(--primary);
+        --object-tools-hover-bg: var(--accent);
+    }
+
+    /* Header styling */
+    #header {
+        background: var(--header-bg);
+        color: var(--header-color);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    #branding h1 {
+        font-weight: 700;
+    }
+
+    #branding h1 a:link, #branding h1 a:visited {
+        color: var(--header-link-color);
+    }
+
+    /* Sidebar styling */
+    #content-related {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Button styling */
+    .button, input[type=submit], input[type=button], .submit-row input {
+        background: var(--button-bg);
+        color: var(--button-fg);
+        border-radius: 8px;
+        border: none;
+        padding: 10px 15px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .button:hover, input[type=submit]:hover, input[type=button]:hover {
+        background: var(--button-hover-bg);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .button.default {
+        background: var(--default-button-bg);
+    }
+
+    .button.default:hover {
+        background: var(--default-button-hover-bg);
+    }
+
+    /* Form styling */
+    .form-row {
+        padding: 10px 0;
+    }
+
+    .form-row label {
+        font-weight: 500;
+        color: var(--body-fg);
+    }
+
+    .form-row input, .form-row select, .form-row textarea {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 8px;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    }
+
+    /* Table styling */
+    #changelist table {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    #changelist table thead th {
+        background: var(--primary);
+        color: var(--primary-fg);
+        font-weight: 600;
+        padding: 12px 15px;
+    }
+
+    #changelist table tbody tr:nth-child(even) {
+        background: rgba(0, 0, 0, 0.02);
+    }
+
+    #changelist table tbody tr:hover {
+        background: rgba(76, 175, 80, 0.05);
+    }
+
+    /* Object tools styling */
+    .object-tools a {
+        background: var(--object-tools-bg);
+        color: var(--object-tools-fg);
+        border-radius: 8px;
+        padding: 8px 12px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .object-tools a:hover {
+        background: var(--object-tools-hover-bg);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Breadcrumbs styling */
+    .breadcrumbs {
+        background: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+    }
+
+    /* Messages styling */
+    .messagelist {
+        margin: 0 0 20px 0;
+    }
+
+    .messagelist li {
+        padding: 12px 15px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .success {
+        background: var(--primary);
+        color: #fff;
+    }
+
+    .warning {
+        background: #f57c00;
+        color: #fff;
+    }
+
+    .error {
+        background: #d32f2f;
+        color: #fff;
+    }
+
+    /* Login page styling */
+    .login {
+        background: var(--body-bg);
+    }
+
+    .login #container {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        padding: 30px;
+    }
+
+    .login #header {
+        border-radius: 8px 8px 0 0;
+    }
+
+    .login .form-row {
+        padding: 15px 0;
+    }
+
+    .login .submit-row {
+        padding: 20px 0 0 0;
+    }
+
+    /* Card styling */
+    .module {
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .module:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+
+    .module h2, .module caption {
+        background: var(--primary);
+        color: var(--primary-fg);
+        border-radius: 8px 8px 0 0;
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        Tobacco Leaf Classifier Administration
+    </a>
+</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %} 

@@ -1,0 +1,54 @@
+{% extends 'classifier/base.html' %}
+
+{% block title %}Ratings and Comments | Tobacco Leaf Classifier{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="mb-4">Ratings and Comments</h2>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">Average Rating: {{ average_rating }} ⭐</h3>
+                    <p class="text-muted">Based on {{ total_ratings }} ratings</p>
+                </div>
+            </div>
+
+            {% if ratings %}
+                {% for rating in ratings %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h5 class="card-title">{{ rating.user.username }}</h5>
+                                    <div class="mb-2">
+                                        {% for i in "12345" %}
+                                            {% if forloop.counter <= rating.rating %}
+                                                <span class="text-warning">⭐</span>
+                                            {% else %}
+                                                <span class="text-muted">☆</span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <p class="card-text">{{ rating.comment }}</p>
+                                    <small class="text-muted">{{ rating.created_at|date:"F j, Y, g:i a" }}</small>
+                                </div>
+                                {% if user.is_staff %}
+                                    <a href="{% url 'classifier:delete_rating' rating.id %}" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-info">
+                    No ratings or comments yet.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

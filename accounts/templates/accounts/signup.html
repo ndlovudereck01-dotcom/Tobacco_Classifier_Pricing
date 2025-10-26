@@ -1,0 +1,88 @@
+{% extends 'accounts/base_auth.html' %}
+
+{% block title %}Sign Up | Tobacco Leaf Classifier{% endblock %}
+
+{% block header_title %}Create an Account{% endblock %}
+
+{% block content %}
+<form method="post" class="auth-form">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        {{ form.username.label_tag }}
+        {{ form.username }}
+        {% if form.username.errors %}
+            <div class="invalid-feedback d-block">
+                {{ form.username.errors }}
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="form-group">
+        {{ form.first_name.label_tag }}
+        {{ form.first_name }}
+        {% if form.first_name.errors %}
+            <div class="invalid-feedback d-block">
+                {{ form.first_name.errors }}
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="form-group">
+        {{ form.last_name.label_tag }}
+        {{ form.last_name }}
+        {% if form.last_name.errors %}
+            <div class="invalid-feedback d-block">
+                {{ form.last_name.errors }}
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="form-group">
+        {{ form.email.label_tag }}
+        {{ form.email }}
+        {% if form.email.errors %}
+            <div class="invalid-feedback d-block">
+                {{ form.email.errors }}
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="form-group">
+        {{ form.password1.label_tag }}
+        {{ form.password1 }}
+        {% if form.password1.errors %}
+            <div class="invalid-feedback d-block">
+                {{ form.password1.errors }}
+            </div>
+        {% endif %}
+        <small class="form-text text-muted">
+            Your password must be at least 8 characters long and can't be entirely numeric.
+        </small>
+    </div>
+    
+    <div class="form-group">
+        {{ form.password2.label_tag }}
+        {{ form.password2 }}
+        {% if form.password2.errors %}
+            <div class="invalid-feedback d-block">
+                {{ form.password2.errors }}
+            </div>
+        {% endif %}
+    </div>
+    
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+    
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+    </div>
+</form>
+{% endblock %}
+
+{% block footer %}
+<p>Already have an account? <a href="{% url 'accounts:login' %}">Log In</a></p>
+{% endblock %}
