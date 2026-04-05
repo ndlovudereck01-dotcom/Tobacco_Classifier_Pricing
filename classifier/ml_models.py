@@ -47,7 +47,7 @@ def load_models():
     
     if not models_exist:
         print("Warning: One or more model files are missing. Using demo mode with simulated results.")
-        USING_MOCK_MODELS = True
+        USING_MOCK_MODELS = False
         return
     
     try:
