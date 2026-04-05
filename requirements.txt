@@ -1,0 +1,15 @@
+# Django web framework
+Django>=3.2,<5.0
+
+# Image processing and computer vision
+opencv-python>=4.5.0
+scikit-image>=0.18.0
+Pillow>=8.0.0
+
+# Machine learning
+tensorflow>=2.5.0
+scikit-learn>=1.0.0
+joblib>=1.1.0
+
+# Scientific computing
+numpy>=1.19.0
