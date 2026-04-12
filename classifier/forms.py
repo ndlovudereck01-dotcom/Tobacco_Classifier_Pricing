@@ -18,13 +18,25 @@ class ImageUploadForm(forms.Form):
             'id': 'imageUpload'
         })
     )
+    group = forms.CharField(
+        required=True,
+        max_length=50,
+        label='Group',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter group',
+            'autocomplete': 'off',
+        }),
+    )
     grower_number = forms.CharField(
         required=True,
         max_length=50,
+        label='Grower number',
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Enter grower number'
-        })
+            'placeholder': 'Enter grower number',
+            'autocomplete': 'off',
+        }),
     )
     lot_number = forms.IntegerField(
         required=True,
@@ -54,6 +66,48 @@ class ImageUploadForm(forms.Form):
 class CameraUploadForm(forms.Form):
     image_data = forms.CharField(
         widget=forms.HiddenInput(attrs={'id': 'imageData'})
+    )
+    group = forms.CharField(
+        required=True,
+        max_length=50,
+        label='Group',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter group',
+            'autocomplete': 'off',
+        }),
+    )
+    grower_number = forms.CharField(
+        required=True,
+        max_length=50,
+        label='Grower number',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter grower number',
+            'autocomplete': 'off',
+        }),
+    )
+    lot_number = forms.IntegerField(
+        required=True,
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter lot number',
+            'autocomplete': 'off',
+        }),
+    )
+    weight = forms.FloatField(
+        required=True,
+        label='Mass (kg)',
+        validators=[
+            MinValueValidator(1, message='Mass must be at least 1 kg'),
+            MaxValueValidator(120, message='Mass cannot exceed 120 kg'),
+        ],
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter mass (1–120 kg)',
+            'step': '0.01',
+            'autocomplete': 'off',
+        }),
     )
 
 class RatingForm(forms.ModelForm):

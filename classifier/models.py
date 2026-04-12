@@ -21,6 +21,7 @@ class TobaccoImage(models.Model):
     blur_score = models.FloatField(null=True, blank=True)
     
     # Farmer information fields
+    group = models.CharField(max_length=50, blank=True)
     grower_number = models.CharField(max_length=50, blank=True)
     lot_number = models.CharField(max_length=50, blank=True)
     bale_number = models.CharField(max_length=50, blank=True)

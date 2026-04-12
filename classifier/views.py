@@ -39,6 +39,7 @@ def upload_image(request):
             # Create tobacco image instance
             tobacco_image = TobaccoImage(
                 image=form.cleaned_data['image'],
+                group=form.cleaned_data['group'],
                 grower_number=grower_number,
                 lot_number=form.cleaned_data['lot_number'],
                 bale_number=next_bale_number,
@@ -100,8 +101,20 @@ def camera_upload(request):
             # Convert base64 to file
             data = ContentFile(base64.b64decode(imgstr))
             
-            # Create tobacco image instance
-            tobacco_image = TobaccoImage()
+            grower_number = form.cleaned_data['grower_number']
+            last_bale = TobaccoImage.objects.filter(grower_number=grower_number).order_by('-bale_number').first()
+            if last_bale and last_bale.bale_number.isdigit():
+                next_bale_number = str(int(last_bale.bale_number) + 1)
+            else:
+                next_bale_number = '1'
+
+            tobacco_image = TobaccoImage(
+                group=form.cleaned_data['group'],
+                grower_number=grower_number,
+                lot_number=form.cleaned_data['lot_number'],
+                bale_number=next_bale_number,
+                weight=form.cleaned_data['weight'],
+            )
             tobacco_image.image.save(f'camera_img_{timezone.now().timestamp()}.{ext}', data, save=True)
             
             # Process the image for tobacco detection
@@ -138,9 +151,11 @@ def camera_upload(request):
                 'redirect_url': f'/result/{tobacco_image.id}/'
             })
         else:
-            return JsonResponse({'success': False, 'errors': form.errors}, status=400)
+            errors = {field: [str(e) for e in msgs] for field, msgs in form.errors.items()}
+            return JsonResponse({'success': False, 'errors': errors}, status=400)
     
-    return render(request, 'classifier/upload.html', {'camera': True})
+    form = CameraUploadForm()
+    return render(request, 'classifier/upload.html', {'camera': True, 'form': form})
 
 def result(request, image_id):
     """Display classification results."""
