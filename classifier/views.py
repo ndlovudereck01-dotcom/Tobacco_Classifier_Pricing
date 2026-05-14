@@ -230,68 +230,6 @@ def dashboard(request):
     return render(request, 'classifier/dashboard.html', context)
 
 @login_required
-def get_statistics(request):
-    """API endpoint for dashboard statistics."""
-    # Get count of processed images in the last 7 days
-    last_week = timezone.now() - timedelta(days=7)
-    daily_counts = TobaccoImage.objects.filter(
-        uploaded_at__gte=last_week
-    ).annotate(
-        day=TruncDay('uploaded_at')
-    ).values('day').annotate(
-        count=Count('id')
-    ).order_by('day')
-    
-    # Format data for chart.js
-    labels = []
-    data = []
-    
-    for item in daily_counts:
-        labels.append(item['day'].strftime('%Y-%m-%d'))
-        data.append(item['count'])
-    
-    return JsonResponse({
-        'labels': labels,
-        'data': data
-    })
-
-@login_required
-def get_grade_distribution(request):
-    """API endpoint for grade distribution chart."""
-    grade_counts = ClassificationResult.objects.values('grade').annotate(
-        count=Count('id')
-    ).order_by('-count')
-    
-    labels = [item['grade'] for item in grade_counts]
-    data = [item['count'] for item in grade_counts]
-    
-    return JsonResponse({
-        'labels': labels,
-        'data': data
-    })
-
-@login_required
-def get_price_history(request):
-    """API endpoint for price history chart."""
-    # Get average price by day for the last 30 days
-    last_month = timezone.now() - timedelta(days=30)
-    price_history = ClassificationResult.objects.filter(
-        classified_at__gte=last_month
-    ).annotate(
-        day=TruncDay('classified_at')
-    ).values('day').annotate(
-        avg_price=Avg('price')
-    ).order_by('day')
-    
-    labels = [item['day'].strftime('%Y-%m-%d') for item in price_history]
-    data = [float(item['avg_price']) for item in price_history]
-    
-    return JsonResponse({
-        'labels': labels,
-        'data': data
-    })
-
-@login_required
 def search_farmer(request):
     """Search for farmer information by grower number."""
     grower_number = request.GET.get('grower_number', '')

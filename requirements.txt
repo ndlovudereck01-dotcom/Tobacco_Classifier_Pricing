@@ -1,5 +1,6 @@
 # Django web framework
 Django>=3.2,<5.0
+djangorestframework>=3.14.0,<4.0
 
 # Image processing and computer vision
 opencv-python>=4.5.0
