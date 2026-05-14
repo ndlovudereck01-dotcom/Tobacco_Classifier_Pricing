@@ -68,16 +68,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tobacco_app.wsgi.application'
 
-# Database
-import dj_database_url
-
-# Use PostgreSQL database from environment variables
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# Database — set DATABASE_URL for PostgreSQL (etc.); otherwise local SQLite.
+if os.environ.get("DATABASE_URL"):
+    DATABASES = {
+        "default": dj_database_url.config(conn_max_age=600),
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        },
+    }
 
 
 # Password validation
