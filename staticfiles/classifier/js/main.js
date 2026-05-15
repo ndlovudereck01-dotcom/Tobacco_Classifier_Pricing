@@ -114,7 +114,28 @@ function validateImageUpload() {
         showAlert('Image size should be less than 5MB.', 'danger');
         return false;
     }
-    
+
+    const groupInput = document.querySelector('[name="group"]');
+    const growerInput = document.querySelector('[name="grower_number"]');
+    const lotInput = document.querySelector('[name="lot_number"]');
+    const weightInput = document.querySelector('[name="weight"]');
+    if (groupInput && !(groupInput.value || '').trim()) {
+        showAlert('Please enter a group.', 'danger');
+        return false;
+    }
+    if (growerInput && !(growerInput.value || '').trim()) {
+        showAlert('Please enter a grower number.', 'danger');
+        return false;
+    }
+    if (lotInput && (lotInput.value === '' || lotInput.value === null)) {
+        showAlert('Please enter a lot number.', 'danger');
+        return false;
+    }
+    if (weightInput && (weightInput.value === '' || weightInput.value === null)) {
+        showAlert('Please enter weight (kg).', 'danger');
+        return false;
+    }
+
     return true;
 }
 

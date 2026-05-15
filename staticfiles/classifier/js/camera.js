@@ -161,10 +161,30 @@ function retakePicture() {
 }
 
 function submitCapturedImage() {
-    // Check if we have an image
     const imageDataInput = document.getElementById('imageData');
     if (!imageDataInput || !imageDataInput.value) {
         showAlert('No image captured. Please take a picture first.', 'danger');
+        return false;
+    }
+
+    const groupInput = document.querySelector('[name="group"]');
+    const growerInput = document.querySelector('[name="grower_number"]');
+    const lotInput = document.querySelector('[name="lot_number"]');
+    const weightInput = document.querySelector('[name="weight"]');
+    if (groupInput && !(groupInput.value || '').trim()) {
+        showAlert('Please enter a group.', 'danger');
+        return false;
+    }
+    if (growerInput && !(growerInput.value || '').trim()) {
+        showAlert('Please enter a grower number.', 'danger');
+        return false;
+    }
+    if (lotInput && (lotInput.value === '' || lotInput.value === null)) {
+        showAlert('Please enter a lot.', 'danger');
+        return false;
+    }
+    if (weightInput && (weightInput.value === '' || weightInput.value === null)) {
+        showAlert('Please enter mass (kg).', 'danger');
         return false;
     }
     
@@ -173,6 +193,7 @@ function submitCapturedImage() {
     if (submitButton) {
         submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
         submitButton.disabled = true;
+        if (typeof feather !== 'undefined') feather.replace();
     }
     
     // Get form
@@ -195,10 +216,20 @@ function submitCapturedImage() {
             if (data.success && data.redirect_url) {
                 window.location.href = data.redirect_url;
             } else {
-                showAlert('Error processing the image. Please try again.', 'danger');
+                let msg = 'Error processing the image. Please try again.';
+                if (data.errors && typeof data.errors === 'object') {
+                    const parts = [];
+                    for (const [field, msgs] of Object.entries(data.errors)) {
+                        const text = Array.isArray(msgs) ? msgs.join(' ') : String(msgs);
+                        parts.push(text);
+                    }
+                    if (parts.length) msg = parts.join(' ');
+                }
+                showAlert(msg, 'danger');
                 if (submitButton) {
-                    submitButton.innerHTML = 'Submit';
+                    submitButton.innerHTML = '<i data-feather="check"></i> Process Image';
                     submitButton.disabled = false;
+                    if (typeof feather !== 'undefined') feather.replace();
                 }
             }
         })
@@ -206,8 +237,9 @@ function submitCapturedImage() {
             console.error('Error:', error);
             showAlert('Error processing the image. Please try again.', 'danger');
             if (submitButton) {
-                submitButton.innerHTML = 'Submit';
+                submitButton.innerHTML = '<i data-feather="check"></i> Process Image';
                 submitButton.disabled = false;
+                if (typeof feather !== 'undefined') feather.replace();
             }
         });
     }
