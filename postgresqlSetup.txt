@@ -1,0 +1,24 @@
+#postgresql setup
+psycopg2-binary and dj-database-url 
+ 
+ $	sudo apt update
+	sudo apt install postgresql postgresql-contrib
+	sudo systemctl start postgresql
+	sudo systemctl enable postgresql
+
+	sudo -u postgres psql
+>CREATE USER tobacco_user WITH PASSWORD 'your_secure_password';
+CREATE DATABASE tobacco_db OWNER tobacco_user;
+GRANT ALL PRIVILEGES ON DATABASE tobacco_db TO tobacco_user;
+\q 
+
+>export DATABASE_URL="postgres://tobacco_user:your_secure_password@localhost:5432/tobacco_db"
+
+cd /home/karoi-scale/projects/Tobacco_Classifier_Pricing
+python manage.py migrate
+python manage.py createsuperuser   # optional
+python manage.py runserver
+
+$ python manage.py dbshell
+
+$ python manage.py shell -c "from django.conf import settings; print(settings.DATABASES['default']['ENGINE'])"
