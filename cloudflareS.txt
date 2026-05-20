@@ -1,0 +1,22 @@
+
+1. Cloudflare account and zone
+Sign up at cloudflare.com.
+Add site → dereckn.online.
+Cloudflare shows two nameservers (e.g. ada.ns.cloudflare.com).
+2. Hostinger: use Cloudflare nameservers
+In Hostinger → domain → Nameservers → Change → Custom DNS → paste Cloudflare’s two nameservers. Wait until Cloudflare shows the zone as Active.
+
+
+
+#3 install cloudflared 
+# See https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/installation/
+# Debian/Ubuntu example:
+curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb -o cloudflared.deb
+sudo dpkg -i cloudflared.deb
+cloudflared tunnel login
+cloudflared tunnel create tobacco
+
+#4. Run Gunicorn locally (bind to localhost only)
+cd /home/karoi-scale/projects/Tobacco_Classifier_Pricing
+source venv/bin/activate
+gunicorn --bind 127.0.0.1:8000 tobacco_app.wsgi:application
