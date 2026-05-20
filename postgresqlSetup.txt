@@ -20,5 +20,4 @@ python manage.py createsuperuser   # optional
 python manage.py runserver
 
 $ python manage.py dbshell
-
 $ python manage.py shell -c "from django.conf import settings; print(settings.DATABASES['default']['ENGINE'])"
