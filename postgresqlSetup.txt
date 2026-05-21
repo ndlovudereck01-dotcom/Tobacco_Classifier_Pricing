@@ -12,7 +12,7 @@ CREATE DATABASE tobacco_db OWNER tobacco_user;
 GRANT ALL PRIVILEGES ON DATABASE tobacco_db TO tobacco_user;
 \q 
 
->export DATABASE_URL="postgres://tobacco_user:your_secure_password@localhost:5432/tobacco_db"
+>export DATABASE_URL="postgres://dere:qwerty12345@localhost:5432/tobacco_db"
 
 cd /home/karoi-scale/projects/Tobacco_Classifier_Pricing
 python manage.py migrate
@@ -20,4 +20,4 @@ python manage.py createsuperuser   # optional
 python manage.py runserver
 
 $ python manage.py dbshell
-$ python manage.py shell -c "from django.conf import settings; print(settings.DATABASES['default']['ENGINE'])"
+$ python manage.py shell -c "from django.conf import settings; print(settings.DATABASES['default']['ENGINE'])
