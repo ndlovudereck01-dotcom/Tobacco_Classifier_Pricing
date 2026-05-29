@@ -20,3 +20,12 @@ cloudflared tunnel create tobacco
 cd /home/karoi-scale/projects/Tobacco_Classifier_Pricing
 source venv/bin/activate
 gunicorn --bind 127.0.0.1:8000 tobacco_app.wsgi:application
+
+
+//
+# set dns automatic
+ cloudflared tunnel route dns django-home dereckn.online
+ cloudflared tunnel route dns django-home www.dereckn.online
+
+ # start the tunnel
+ cloudflared tunnel run django-home
