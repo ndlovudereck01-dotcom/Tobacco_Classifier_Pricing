@@ -1,19 +1,13 @@
-import os
-import json
 import base64
-import numpy as np
-from datetime import timedelta
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.core.files.base import ContentFile
 from django.utils import timezone
-from django.conf import settings
-from django.db.models import Avg, Count, Max, Min, Sum, F
-from django.db.models.functions import TruncDay
+from django.db.models import Avg, Count, Sum, F
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 
-from .forms import TobaccoImageForm, ImageUploadForm, CameraUploadForm, RatingForm
+from .forms import ImageUploadForm, CameraUploadForm, RatingForm
 from .models import TobaccoImage, ClassificationResult, Rating
 from .ml_models import (detect_tobacco, classify_tobacco_quality, 
                        predict_tobacco_price, is_blurry)

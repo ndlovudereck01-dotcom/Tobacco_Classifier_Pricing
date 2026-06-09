@@ -52,7 +52,6 @@ def load_models():
     
     try:
         # Only import tensorflow and related libraries if we have models to load
-        import tensorflow as tf
         from tensorflow import keras
         import joblib
         

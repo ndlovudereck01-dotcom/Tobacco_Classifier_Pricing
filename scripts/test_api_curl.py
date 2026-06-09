@@ -1,30 +1,3 @@
-
-
-
-'''
-
-cd /home/karoi-scale/projects/Tobacco_Classifier_Pricing
-export DJANGO_USER=dere DJANGO_PASSWORD=qwerty1234
-export BASE_URL=http://127.0.0.1:8000   # optional
-python scripts/test_api_curl.py
-
-'''
-#!/usr/bin/env python3
-"""
-Run classifier REST API checks by shelling out to curl.
-
-Requires: curl on PATH, Django dev server running.
-
-  python scripts/test_api_curl.py -u myuser -p mypass
-  # or
-  export DJANGO_USER=myuser DJANGO_PASSWORD=mypass
-  python scripts/test_api_curl.py
-
-Uses HTTP Basic auth (same as DRF BasicAuthentication).
-"""
-
-from __future__ import annotations
-
 import argparse
 import json
 import os
@@ -181,3 +154,27 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
+'''
+
+cd /home/karoi-scale/projects/Tobacco_Classifier_Pricing
+export DJANGO_USER=dere DJANGO_PASSWORD=qwerty1234
+export BASE_URL=http://127.0.0.1:8000   # optional
+python scripts/test_api_curl.py
+
+'''
+#!/usr/bin/env python3
+"""
+Run classifier REST API checks by shelling out to curl.
+
+Requires: curl on PATH, Django dev server running.
+
+  python scripts/test_api_curl.py -u myuser -p mypass
+  # or
+  export DJANGO_USER=myuser DJANGO_PASSWORD=mypass
+  python scripts/test_api_curl.py
+
+Uses HTTP Basic auth (same as DRF BasicAuthentication).
+"""
+#from __future__ import annotations

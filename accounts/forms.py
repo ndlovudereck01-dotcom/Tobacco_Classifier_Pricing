@@ -2,11 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.cache import cache
-from django.utils import timezone
 from django.contrib.auth import authenticate
-import hashlib
 import time
-import base64
 
 class SignUpForm(UserCreationForm):
     """Form for user signup."""

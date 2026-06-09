@@ -7,7 +7,6 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from .forms import SignUpForm, UserUpdateForm
 from .models import UserActivity
-from django.utils import timezone
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')

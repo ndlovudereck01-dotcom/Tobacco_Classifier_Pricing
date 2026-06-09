@@ -1,5 +1,4 @@
 from django import template
-from django.db.models import Sum, F
 
 register = template.Library()
 
