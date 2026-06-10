@@ -24,7 +24,7 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DEBUG: "False"
         run: python manage.py test
-    - name: Debug - check if HOST secret is provided
+      - name: Debug - check if HOST secret is provided
         run: |
           if [ -z "${{ secrets.HOST }}" ]; then
             echo "HOST secret is EMPTY or not set!"
