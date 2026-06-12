@@ -24,28 +24,35 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DEBUG: "False"
         run: python manage.py test
+name: Deploy Django
 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
   deploy:
-    needs: test                    # only runs if tests pass
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'   # only from main branch
 
     steps:
-      - name: Deploy to home server via SSH
-        uses: appleboy/ssh-action@v1.0.3
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.0
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.PORT }}
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            cd /home/karoi-scale/Desktop/Tobacco_Classifier_Pricing
-            git fetch origin main
-            git reset --hard origin/main
+            cd /home/ubuntu/myproject
+
+            git pull origin main
+
             source venv/bin/activate
+
             pip install -r requirements.txt
+
             python manage.py migrate
+
             python manage.py collectstatic --noinput
-            sudo systemctl restart django.service
-            # If you want to restart the tunnel (rarely needed):
-            # sudo systemctl restart cloudflared.service
+
+            sudo systemctl restart gunicorn
