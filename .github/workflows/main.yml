@@ -39,7 +39,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /home/deployer/your-repo   # change to your project path
+            cd /home/karoi-scale/Desktop/Tobacco_Classifier_Pricing
             git fetch origin main
             git reset --hard origin/main
             source venv/bin/activate
