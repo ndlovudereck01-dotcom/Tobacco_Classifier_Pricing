@@ -1,6 +1,7 @@
 name: Django CI/CD
 
 on:
+  self-hosted
   push:
     branches: [ main ]
   pull_request:
@@ -34,7 +35,6 @@ jobs:
           ruff check .
 
   deploy:
-    runs-on: self-hosted
 
     needs: test                    # only runs if tests pass
     runs-on: ubuntu-latest
