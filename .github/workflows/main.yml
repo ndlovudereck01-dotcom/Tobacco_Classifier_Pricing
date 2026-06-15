@@ -61,6 +61,6 @@ jobs:
 
           sudo systemctl restart tobacco
 
-      ##- name: Verify service
-        ##run: |
+      - name: Verify service
+        run: |
           ##systemctl is-active tobacco  
