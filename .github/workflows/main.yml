@@ -1,6 +1,11 @@
 name: Django CI/CD
 
-runs-on: self-hosted
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  runs-on: self-hosted
 
 jobs:
   test:
