@@ -20,13 +20,13 @@ using machine learning.
 ----------------------------------------------------------------
    # 1. Download the miniconda installer
       Linux (64-bit):
-         $ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+         wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
  
       macOS (Intel):
-         $ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
+         wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
  
       macOS (Apple Silicon M1/M2):
-         $ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh
+         wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh
  
       Windows:
         Download from: https://docs.conda.io/en/latest/miniconda.html
@@ -36,10 +36,10 @@ using machine learning.
     chmod +x Miniconda3-latest-Linux-x86_64.sh
   
   # 3. Run the installer
-    $ bash Miniconda3-latest-Linux-x86_64.sh
+    bash Miniconda3-latest-Linux-x86_64.sh
      
   # 4. Create environment
-    $ conda create --name tobacco-env python=3.11
+    conda create --name tobacco-env python=3.11
  
   # 5. Activate it
     conda activate tobacco-env
