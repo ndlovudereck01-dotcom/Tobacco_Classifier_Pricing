@@ -5,17 +5,20 @@ Django settings for tobacco_app project.
 import os
 from pathlib import Path
 import dj_database_url
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-p85r&8v$a1e&nc#o@t3)h)o6@qm+$wdnbhr4c&*p=47_+6*sn7'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['dereckn.online', 'localhost', 'www.dereckn.online', '*']
+#SECRET_KEY = config("SECRET_KEY")
+#DEBUG = config("DEBUG", default=False, cast=bool)
+
+ALLOWED_HOSTS = ['tobaccoleafclassification.online', 'localhost', 'www.tobaccoleafclassification.online', '*']
 
 # Application definition
 INSTALLED_APPS = [
@@ -72,7 +75,15 @@ WSGI_APPLICATION = 'tobacco_app.wsgi.application'
 # Database — set DATABASE_URL for PostgreSQL (etc.); otherwise local SQLite.
 if os.environ.get("DATABASE_URL"):
     DATABASES = {
-        "default": dj_database_url.config(conn_max_age=600),
+        #"default": dj_database_url.config(conn_max_age=600),
+        "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": config("DB_NAME"),
+        "USER": config("DB_USER"),
+        "PASSWORD": config("DB_PASSWORD"),
+        "HOST": config("DB_HOST"),
+        "PORT": config("DB_PORT"),
+    }
     }
 else:
     DATABASES = {
