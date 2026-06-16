@@ -8,6 +8,7 @@ whitenoise>=6.6,<7.0
 
 # Database drivers (PostgreSQL when using DATABASE_URL with postgres://...)
 psycopg2-binary>=2.9.0,<3.0
+python-decouple>=3.8
 
 # Image processing and computer vision
 opencv-python>=4.5.0
