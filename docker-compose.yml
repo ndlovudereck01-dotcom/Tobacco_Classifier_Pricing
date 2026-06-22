@@ -1,0 +1,36 @@
+services:
+
+  db:
+    image: postgres:16
+    container_name: tobacco_postgres
+
+    environment:
+      POSTGRES_DB: tobacco_db
+      POSTGRES_USER: dere
+      POSTGRES_PASSWORD: qwerty12345
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    restart: always
+
+  web:
+    build: .
+
+    container_name: tobacco_django
+
+    command: gunicorn tobacco_app.wsgi:application --bind 0.0.0.0:8000
+
+    ports:
+      - "8000:8000"
+
+    env_file:
+      - .env
+
+    depends_on:
+      - db
+
+    restart: always
+
+volumes:
+  postgres_data:
