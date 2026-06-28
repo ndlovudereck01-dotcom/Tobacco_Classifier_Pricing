@@ -3,11 +3,11 @@
 .env.*
 
 # Python
-#__pycache__/
-#*.py[cod]
-#*.pyo
-#*.pyd
-#.Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
 
 # Virtual environments
 venv/
@@ -15,23 +15,23 @@ env/
 .venv/
 
 # Django
-#*.log
-#*.pot
-#*.pyc
-#db.sqlite3
+*.log
+*.pot
+*.pyc
+db.sqlite3
 #media/
 #staticfiles/
 
 # Conda
-#.conda/
+.conda/
 
 # OS
-#.DS_Store
-#Thumbs.db
+.DS_Store
+Thumbs.db
 
 # IDE
-#.vscode/
-#.idea/
+.vscode/
+.idea/
 
 # imp file
 ndlovudereck01@gmail.com-2026-06-26T13_52_47.674Z.pem
