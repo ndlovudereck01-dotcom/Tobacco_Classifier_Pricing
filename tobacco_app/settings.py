@@ -5,20 +5,20 @@ Django settings for tobacco_app project.
 import os
 from pathlib import Path
 #import dj_database_url
-from decouple import config
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-p85r&8v$a1e&nc#o@t3)h)o6@qm+$wdnbhr4c&*p=47_+6*sn7'
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 
-#SECRET_KEY = config("SECRET_KEY")
-#DEBUG = config("DEBUG", default=False, cast=bool)
+#.env cong (django-environ)
+env = environ.Env(DEBUG=(bool, False))
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-ALLOWED_HOSTS = ['tobaccoleafclassification.online', 'localhost', 'www.tobaccoleafclassification.online', '*']
+SECRET_KEY = env('SECRET_KEY')
+DEBUG = env('DEBUG')
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS')
 
 # Application definition
 INSTALLED_APPS = [
@@ -42,12 +42,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
-# CSRF settings
-CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:5000',
-    'http://0.0.0.0:5000',
 ]
 
 ROOT_URLCONF = 'tobacco_app.urls'
