@@ -24,4 +24,7 @@ tensorflow>=2.5.0
 scikit-learn>=1.0.0
 joblib>=1.1.0
 
-gunicorn
+gunicorn==23.0.0
+
+# .env
+django-environ==0.14.0
