@@ -76,6 +76,15 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'tobacco_app.wsgi.application'
+
+#temp
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
 '''
 # Database — set DATABASE_URL for PostgreSQL (etc.); otherwise local SQLite.
 if os.environ.get("DATABASE_URL"):
@@ -91,14 +100,13 @@ if os.environ.get("DATABASE_URL"):
     }
     }
 else:
-'''
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "db.sqlite3",
         },
     }
-
+'''
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
