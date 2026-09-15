@@ -76,7 +76,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'tobacco_app.wsgi.application'
-
+'''
 # Database — set DATABASE_URL for PostgreSQL (etc.); otherwise local SQLite.
 if os.environ.get("DATABASE_URL"):
     DATABASES = {
@@ -91,6 +91,7 @@ if os.environ.get("DATABASE_URL"):
     }
     }
 else:
+'''
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
