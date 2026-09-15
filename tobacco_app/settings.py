@@ -5,6 +5,15 @@ Django settings for tobacco_app project.
 import os
 from pathlib import Path
 #import dj_database_url
+
+SECRET_KEY = 'django-insecure-sw_l0sr!z$rb2p*c3^n-k#9*=%v8y-_i8tx^_)2h^!!@-)#w-l'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+
+ALLOWED_HOSTS = []
+
+'''
 import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -19,7 +28,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS')
-
+'''
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
