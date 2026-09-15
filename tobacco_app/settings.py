@@ -156,7 +156,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
 }
-
+'''
 #  Oracle Cloud Object Storage
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
@@ -174,3 +174,4 @@ AWS_QUERYSTRING_AUTH = False         # clean URLs without auth tokens
 
 # Media files now served from Oracle Cloud
 MEDIA_URL = f"https://{env('OCI_NAMESPACE')}.compat.objectstorage.{env('OCI_REGION')}.oraclecloud.com/{env('OCI_BUCKET_NAME')}/"
+'''
