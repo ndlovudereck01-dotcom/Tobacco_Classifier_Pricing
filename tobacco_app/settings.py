@@ -145,3 +145,21 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
 }
+
+#  Oracle Cloud Object Storage
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = env('OCI_ACCESS_KEY')
+AWS_SECRET_ACCESS_KEY = env('OCI_SECRET_KEY')
+AWS_STORAGE_BUCKET_NAME = env('OCI_BUCKET_NAME')
+AWS_S3_REGION_NAME = env('OCI_REGION')
+
+# Oracle S3-compatible endpoint
+AWS_S3_ENDPOINT_URL = f"https://{env('OCI_NAMESPACE')}.compat.objectstorage.{env('OCI_REGION')}.oraclecloud.com"
+
+AWS_S3_FILE_OVERWRITE = False        # don't overwrite files with same name
+AWS_DEFAULT_ACL = 'public-read'      # files publicly accessible
+AWS_QUERYSTRING_AUTH = False         # clean URLs without auth tokens
+
+# Media files now served from Oracle Cloud
+MEDIA_URL = f"https://{env('OCI_NAMESPACE')}.compat.objectstorage.{env('OCI_REGION')}.oraclecloud.com/{env('OCI_BUCKET_NAME')}/"
